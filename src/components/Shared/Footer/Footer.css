@@ -25,6 +25,7 @@
 }
 .footer .footer-widget .footer-about-content p {
 	color: #fff;
+	margin-left: 10px;
 }
 .footer .footer-widget .footer-about-content p:last-child {
 	margin-bottom: 0;

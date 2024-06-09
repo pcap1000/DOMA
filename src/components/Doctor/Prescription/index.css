@@ -1,10 +1,265 @@
-.symptoms-section h5{
-    font-size: 14px;
-    font-weight: 700;
+/* index.css */
+
+/* General Styles */
+.invoice-content {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem; /* Increased padding for more space */
+    margin-top: 1rem;
+    transition: all 0.3s ease;
 }
 
-.symptoms-section p{
-    font-size: 13px;
-    font-weight: 500;
-    color: #3f3f3f;
+.invoice-item {
+    margin-bottom: 2rem; /* Increased margin for spacing */
+}
+
+.invoice-logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.invoice-details {
+    background: #f8f9fa; /* Changed background for better visibility */
+    padding: 2rem; /* Increased padding for more space */
+    border-radius: 8px;
+    margin-bottom: 1.5rem; /* Added margin for spacing */
+    transition: all 0.3s ease;
+    width: 100%; /* Ensure full width on larger screens */
+}
+
+.invoice-details h3,
+.invoice-details h5 {
+    margin: 1rem 0; /* Increased margin for better spacing */
+    color: #333333;
+}
+
+.invoice-details p {
+    font-size: 1rem; /* Increased font size for readability */
+    color: #555555;
+}
+
+.invoice-info {
+    margin-top: 2rem; /* Increased margin for spacing */
+}
+
+.invoice-details-two {
+    background: #e9ecef; /* Slightly darker background for contrast */
+    padding: 2rem; /* Increased padding */
+    border-radius: 8px;
+}
+
+.customer-text {
+    font-weight: 700;
+    margin-bottom: 1rem; /* Increased margin for spacing */
+}
+
+.patient-name {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 2rem; /* Increased margin for spacing */
+}
+
+.patient-name div {
+    margin-bottom: 1rem;
+}
+
+.symptoms-section {
+    padding: 2rem; /* Increased padding for more space */
+    background: #e6f7ff;
+    border-radius: 8px 0 0 8px;
+}
+
+.symptoms-section h5 {
+    margin-top: 0;
+    font-size: 1.2rem; /* Increased font size */
+}
+
+.invoice-table-wrap .ant-table {
+    margin-top: 2rem; /* Increased margin for spacing */
+}
+
+/* Table Specific Styles */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table-responsive .ant-table-cell {
+    white-space: nowrap;
+}
+
+/* Print Button Styling */
+.print-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+}
+
+.print-button button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.print-button button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Styles */
+
+/* Large screens */
+@media (max-width: 1200px) {
+    .invoice-content {
+        padding: 1.5rem; /* Slightly reduced padding for large screens */
+    }
+
+    .invoice-details {
+        padding: 1.5rem; /* Adjusted padding */
+    }
+}
+
+/* Medium screens */
+@media (max-width: 992px) {
+    .invoice-content {
+        padding: 1.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .invoice-item {
+        margin-bottom: 1.5rem; /* Adjusted margin */
+    }
+
+    .patient-name {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .patient-name div {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 1rem; /* Adjusted margin */
+    }
+
+    .symptoms-section {
+        border-radius: 8px;
+    }
+
+    .invoice-table-wrap {
+        overflow-x: auto;
+    }
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+    .print-button {
+        margin-bottom: 1rem;
+        justify-content: center;
+    }
+
+    .invoice-info {
+        text-align: center;
+    }
+
+    .patient-name {
+        text-align: center;
+    }
+
+    .invoice-details,
+    .invoice-info {
+        text-align: left;
+        padding: 1.5rem; /* Adjusted padding for small screens */
+    }
+
+    .symptoms-section h5 {
+        font-size: 1.1rem; /* Adjusted font size */
+    }
+
+    .invoice-table-wrap .ant-table {
+        font-size: 0.85rem;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-responsive .ant-table-cell {
+        white-space: nowrap;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 576px) {
+    .content {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .invoice-details,
+    .invoice-info {
+        font-size: 0.9rem; /* Adjusted font size */
+        padding: 1rem; /* Adjusted padding */
+    }
+
+    .symptoms-section {
+        padding: 1rem; /* Adjusted padding */
+    }
+
+    .symptoms-section h5 {
+        font-size: 1rem; /* Adjusted font size */
+    }
+
+    .invoice-table-wrap .ant-table {
+        font-size: 0.75rem;
+    }
+
+    .patient-name div {
+        text-align: left;
+    }
+
+    .symptoms-section {
+        text-align: left;
+    }
+
+    .invoice-table-wrap {
+        overflow-x: auto;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .table-responsive .ant-table-cell {
+        white-space: nowrap;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 400px) {
+    .invoice-details {
+        font-size: 0.8rem; /* Adjusted font size */
+        padding: 1rem; /* Adjusted padding */
+    }
+
+    .invoice-info {
+        font-size: 0.8rem; /* Adjusted font size */
+    }
+
+    .invoice-table-wrap .ant-table {
+        font-size: 0.7rem;
+    }
+
+    .print-button {
+        justify-content: center;
+    }
 }

@@ -40,7 +40,7 @@ const DoctorProfile = () => {
         {
             key: '4',
             label: 'Availability',
-            children: <Availibility />,
+            children: <Availibility doctorId='a3e13a20-77eb-4fdd-9663-71b1dc3fa81b' />,
         },
     ];
 
@@ -48,7 +48,7 @@ const DoctorProfile = () => {
     return (
         <>
             <Header />
-            <SubHeader title='Doctor Details' subtitle='Lorem ipsum dolor sit amet.' />
+            <SubHeader title='Doctor Details'  />
             <div className="container" style={{ marginBottom: '4rem', marginTop: '6rem' }}>
                 {content}
                 <div className='p-4 rounded' style={{ marginBottom: '7rem', backgroundColor: '#f3f3f3' }}>

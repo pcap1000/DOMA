@@ -45,8 +45,8 @@ const ViewAppointment = () => {
                         APPOINTMENT INFOMATION
                     </h4>
                     <div className='border border-light-subtle rounded p-3'>
-                        <p className='mb-1'>Place of Meeting : <Tag bordered={false} color="#f50">ONLINE</Tag></p>
-                        <p className='mb-1'>Meeting Link : <a href="https://meet.google.com/udx-kieq-sng" target='_blank' rel='noreferrer'>https://meet.google.com/udx-kieq-sng</a></p>
+                        <p className='mb-1'>Place of Meeting : <Tag bordered={false} color="#f50">OFFLINE</Tag></p>
+                      
                         <p className='mb-1'>Meeting Date : <Tag bordered={false} color="orange">{moment(data?.scheduleDate).format('LL')}</Tag></p>
                         <p className='mb-1'>Meeting Time : <Tag bordered={false} color="orange">{data?.scheduleTime}</Tag></p>
                     </div>
@@ -64,7 +64,8 @@ const ViewAppointment = () => {
                                 <h4 className="mb-1">{data?.doctor?.firstName && data?.doctor?.lastName ? `${data.doctor.firstName} ${data.doctor.lastName}` : (data?.doctor?.firstName || data?.doctor?.lastName)}</h4>
                                 <p className="mb-1">{data?.doctor?.specialization}</p>
                                 <p className="mb-1 form-text">{data?.doctor?.designation}</p>
-                                <p className="mb-1 form-text">{data?.doctor?.college}</p>
+                                <p className="mb-1 form-text"> <b>Location :</b> {data?.doctor?.address}</p>
+                                {/* address */}
                             </div>
                         </div>
                     }

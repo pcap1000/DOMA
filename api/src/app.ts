@@ -5,6 +5,7 @@ import httpStatus from 'http-status';
 import ApiError from './errors/apiError';
 import router from './app/routes';
 import config from './config';
+// import img from '../../src/images/specialities'
 
 const app: Application = express();
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-app.get('/favicon.ico', (req: Request, res: Response) => {
+app.get('/logo.png', (req: Request, res: Response) => {
     res.status(204).end();
 })
 

@@ -19,7 +19,7 @@ const SubHeader = ({title, subtitle}) => {
         right: '0',
         width: '100%',
         height: '100%',
-        opacity: '0.9',
+        opacity: '0.7',
         background: '#223a66',
     };
 
@@ -29,7 +29,7 @@ const SubHeader = ({title, subtitle}) => {
             <div className="container position-relative">
                 <div className="row">
                     <div className="col-md-12">
-                        <div className='mb-4 section-title text-center'>
+                        <div className='mb-4 section-title'>
                             <h2 className='text-white text-uppercase'>{title}</h2>
                             <p className='text-white m-0'>{subtitle && subtitle}</p>
                         </div>

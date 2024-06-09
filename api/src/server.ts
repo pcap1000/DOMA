@@ -16,7 +16,7 @@ async function bootstrap(){
     };
 
     const unexpectedHandler = () =>{
-        console.log('Handler Error');
+        console.log(' Handler Error');
         exitHandler();
     }
     process.on('uncaughtException', unexpectedHandler);

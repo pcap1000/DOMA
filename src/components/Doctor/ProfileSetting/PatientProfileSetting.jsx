@@ -72,7 +72,9 @@ const PatientProfileSetting = () => {
                                     <img src={selectedImage ? selectedImage : data?.img || pImage} alt="" />
                                 </Link>
                                 <div className="mt-3">
-                                    <ImageUpload setSelectedImage={setSelectedImage} setFile={setFile}/>
+                                <label><b>Image Link :</b>  <span className="text-danger"></span></label>
+                                <input defaultValue={data?.img} {...register("img")} className="form-control" />
+                                    {/* <ImageUpload setSelectedImage={setSelectedImage} setFile={setFile}/> */}
                                 </div>
                             </div>
                         </div>

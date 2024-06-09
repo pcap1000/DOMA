@@ -44,10 +44,11 @@ const DoctorBooking = () => {
     const [patientId, setPatientId] = useState('');
     const [createAppointment, { data: appointmentData, isSuccess: createIsSuccess, isError: createIsError, error: createError, isLoading: createIsLoading }] = useCreateAppointmentMutation();
     const { doctorId } = useParams();
+    console.log('doctorId:', doctorId); 
     const navigation = useNavigate();
     const { data, isLoading, isError, error } = useGetDoctorQuery(doctorId);
     const { data: time, refetch, isLoading: dIsLoading, isError: dIsError, error: dError } = useGetAppointmentTimeQuery({ day: selectDay, id: doctorId });
-
+    console.log('time:', time);
     const [selectValue, setSelectValue] = useState(initialValue);
     const [IsdDisable, setIsDisable] = useState(true);
     const [IsConfirmDisable, setIsConfirmDisable] = useState(true);
@@ -142,6 +143,9 @@ const DoctorBooking = () => {
     }))
 
     const handleConfirmSchedule = () => {
+        
+    console.log('Selected Date:', selectedDate);
+        console.log('Doctor ID:', doctorId);
         const obj = {};
         obj.patientInfo = {
             firstName: selectValue.firstName,

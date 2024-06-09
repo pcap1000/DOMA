@@ -8,8 +8,9 @@ import { Empty } from 'antd';
 import { Pagination } from 'antd';
 import Header from '../../Shared/Header/Header';
 import SubHeader from '../../Shared/SubHeader';
+import ChatBot from '../../ChatBot/ChatBot';
 
-const SearchDoctor = () => {
+const SearchDoctorAdmin = () => {
     const query = {};
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(10);
@@ -74,9 +75,16 @@ const SearchDoctor = () => {
     }
 
     return (
+
+        <>
+        
+           
+
         <div>
             <Header />
-            <SubHeader title='Doctors' subtitle='Lorem ipsum dolor sit amet.' />
+            <SubHeader title='Doctors' subtitle='' />
+
+
             <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
                 <div className="container-fluid">
                     <div className="row">
@@ -104,7 +112,9 @@ const SearchDoctor = () => {
             </div>
             <Footer />
         </div>
+        <ChatBot />
+    </>
     )
 }
 
-export default SearchDoctor
+export default SearchDoctorAdmin

@@ -2,21 +2,24 @@ import React from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
 
+
 const HeroSection = () => {
     return (
-        <section id="hero" className="d-flex align-items-center">
+        <div id="hero" >
             <div className="container">
-                <div>
-                    <small>TOTAL HEALTH CARE SOLUTION</small>
-                    <h1>Your Most Trusted <br />Health Partner</h1>
-                    <small>A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</small>
+                <div className='Wrapp'>
+                    <h1>Book with Ease 
+                        <br />Heal with Confidence</h1>
+                    <p>Docmate offers seamless doctor-patient appointment booking, ensuring hassle-free scheduling for all medical needs. With our user-friendly platform, patients can easily find available slots, empowering them to take control of their health journey with confidence and convenience. </p>
                 </div>
                 <div className="d-flex justify-content-start gap-2">
                     <Link to={'/doctors'} className="btn-get-started scrollto">Get Started</Link>
                     <Link to={'/track-appointment'} className="btn-get-started scrollto">Track Appointment</Link>
                 </div>
             </div>
-        </section>
+
+            
+        </div>
     )
 }
 export default HeroSection;

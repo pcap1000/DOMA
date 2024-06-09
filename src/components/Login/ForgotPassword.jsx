@@ -35,7 +35,7 @@ const ForgotPassword = () => {
         <>
             <Header />
             <div className='d-flex justify-content-center'>
-                <div style={{ marginTop: '8rem', marginBottom: '8rem', minWidth: "450px" }} >
+                <div style={{ marginTop: '8rem', marginBottom: '8rem', minWidth: "600px" }} >
                     <div className='card bg-white shadow p-3 border-0'>
                         <div>
                             <Form

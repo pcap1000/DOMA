@@ -134,14 +134,6 @@ const DashboardSidebar = () => {
                                     <span>Profile Settings</span>
                                 </NavLink>
                             </li>
-
-                            <li>
-                                <NavLink to={'/dashboard/blogs'} activeClassName="active" end>
-                                    <FaBlog className="icon" />
-                                    <span>Blogs (Will move to Admin)</span>
-                                </NavLink>
-                            </li>
-
                             <li>
                                 <NavLink to={'/dashboard/change-password'} activeClassName="active" end>
                                     <FaLock className="icon" />

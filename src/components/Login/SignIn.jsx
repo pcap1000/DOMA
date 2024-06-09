@@ -4,10 +4,11 @@ import SocialSignUp from './SocialSignUp';
 import { useForm } from "react-hook-form";
 import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from 'react-router-dom';
-import { Toast } from 'react-bootstrap';
+// import { Toast } from 'react-bootstrap';
 import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/authApi';
 import { message } from 'antd';
 import { useMessageEffect } from '../../utils/messageSideEffect';
+import './SignInForm.css';
 
 const SignIn = ({ handleResponse }) => {
     const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -55,20 +56,20 @@ const SignIn = ({ handleResponse }) => {
                 showForgotPassword
                     ?
                     <form className="sign-in-form" onSubmit={onHandleForgotPassword}>
-                        <h2 className="title">Forgot Password</h2>
-                        <div>To Forgot Your Password Please Enter your email</div>
+                        <h2 className="title" style={{ color: '#3b74d1' }}>Forgot Password</h2>
+                        <div>Please Enter your email</div>
                         <div className="input-field">
                             <span className="fIcon"><FaEnvelope /></span>
                             <input value={forgotEmail !== undefined && forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} placeholder="Enter Your Email" type="email" required />
                         </div>
-                        <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>Stil Remember Password ?</div>
-                        <button className="iBtn" type="submit" value="sign In" >
+                        <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#3b74d1' }}>Stil Remember Password ?</div>
+                        <button className="iBtn" type="submit" value="sign In" style={{backgroundColor: "#3b74d1"}}>
                             {resetIsLoading ? <Spinner animation="border" variant="info" /> : "Submit"}
                         </button>
                     </form>
                     :
                     <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
-                        <Toast show={show} onClose={() => setShow(!show)} className="signInToast">
+                        {/* <Toast show={show} onClose={() => setShow(!show)} className="signInToast">
                             <Toast.Header>
                                 <strong className="mr-auto">Demo credential</strong>
                             </Toast.Header>
@@ -83,8 +84,8 @@ const SignIn = ({ handleResponse }) => {
                                     Please do not abuse the facility
                                 </div>
                             </Toast.Body>
-                        </Toast>
-                        <h2 className="title">Sign in</h2>
+                        </Toast> */}
+                        <h2 className="title" style={{color:'#3b74d1', fontSize:'30px', marginTop: '-180px'}}>Sign in</h2>
                         <div className="input-field">
                             <span className="fIcon"><FaEnvelope /></span>
                             <input {...register("email", { required: true })} placeholder="Enter Your Email" type="email" />
@@ -96,12 +97,12 @@ const SignIn = ({ handleResponse }) => {
                         </div>
                         {errors.password && <span className="text-danger">This field is required</span>}
                         {infoError && <p className="text-danger">{infoError}</p>}
-                        <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>Forgot Password ?</div>
-                        <button className="iBtn" type="submit" value="sign In" >
+                        <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#3b74d1' }}>Forgot Password ?</div>
+                        <button className="iBtn" type="submit" value="sign In" style={{ cursor: "pointer", backgroundColor: '#3b74d1' }}>
                             {isLoading ? <Spinner animation="border" variant="info" /> : "Sign In"}
                         </button>
-                        <p className="social-text">Or Sign in with social platforms</p>
-                        <SocialSignUp handleResponse={handleResponse} />
+                        {/* <p className="social-text">Or Sign in with social platforms</p> */}
+                        {/* <SocialSignUp handleResponse={handleResponse} /> */}
                     </form>
             }
         </>

@@ -13,25 +13,30 @@ import Schedule from './components/Doctor/Schedule/Schedule';
 import ProfileSetting from './components/Doctor/ProfileSetting/ProfileSetting';
 import ChangePassword from './components/Doctor/ChangePassword/ChangePassword';
 import AdminDashboard from './components/Admin/Dashboard/Dashboard';
-import AdminAppointments from './components/Admin/Appointments/Appointments';
-import Doctors from './components/Admin/Doctors/Doctors';
-import Patients from './components/Admin/Patients/Patients';
-import Profile from './components/Admin/Profile/Profile';
-import Transactions from './components/Admin/Transactions/Transactions';
-import Specialites from './components/Admin/Specialites/Specialites';
-import AdminReviews from './components/Admin/Reviews/Reviews'
+// import AdminAppointments from './components/Admin/Appointments/Appointments';
+// import Doctors from './components/Admin/Doctors/SearchDoctor';
+// import Patients from './components/Admin/Patients/Patients';
+// import Profile from './components/Admin/Profile/Profile';
+// import Transactions from './components/Admin/Transactions/Transactions';
+// import Specialites from './components/Admin/Specialites/Specialites';
+// import AdminReviews from './components/Admin/Reviews/Reviews'
 import PatientFavouriteDoctor from './components/Doctor/PatientFavourite/PatientFavourite';
 import DoctorInvoice from './components/Doctor/Invoice/DoctorInvoice';
 import SearchDoctor from './components/Doctor/SearchDoctor/SearchDoctor';
+
 import Blogs from './components/Doctor/Blogs/Blogs';
 import BlogsEdit from './components/Doctor/Blogs/BlogsEdit';
 import AddBlog from './components/Doctor/Blogs/AddBlog';
-import Blog from './components/Blog/Blog';
-import BlogDetails from './components/Blog/BlogDetails';
+
+
+import ChatBot from './components/ChatBot/ChatBot';
+import ChatBotHome from './components/ChatBot/ChatBotHome';
+
 import Contact from './components/Contact/Contact';
 import About from './components/About/About';
 import Service from './components/Service/Service';
 import AppointmentPage from './components/Appointment/AppointmentPage';
+import DoctorAppointmentsPage from './components/Appointment/DoctorAppointmentsPage';
 import TrackAppointment from './components/TrackAppointment/TrackAppointment';
 import Treatment from './components/Doctor/Treatment/Treatment';
 import Prescription from './components/Doctor/Prescription/Prescription';
@@ -48,8 +53,8 @@ function App() {
     <Router>
       <Routes>
         <Route element={<PrivateOutlet />}>
-          <Route path='/dashboard/blogs' element={<Blogs />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard/blogs' element={<Blogs />} />
           <Route path='/dashboard/my-patients' element={<MyPatients />} />
           <Route path='/dashboard/reviews' element={<Reviews />} />
           <Route path='/dashboard/schedule' element={<Schedule />} />
@@ -66,13 +71,15 @@ function App() {
         </Route>
         <Route path='/login' element={<SignInForm />} />
         <Route path='/' element={<Home />} />
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/blog/:id' element={<BlogDetails />} />
+
         <Route path='/contact' element={<Contact />} />
+        <Route path='/ChatBot' element={<ChatBot />} />
+        <Route path='/ChatBotHome' element={<ChatBotHome />} />
         <Route path='/about' element={<About />} />
         <Route path='/service' element={<Service />} />
         <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
         <Route path='/appointment' element={<AppointmentPage />} />
+        <Route path='/DoctorAppointmentsPage/:doctorId' element={<DoctorAppointmentsPage />} />
         <Route path='/track-appointment' element={<TrackAppointment />} />
         <Route path='/doctors' element={<SearchDoctor />} />
         <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
@@ -83,13 +90,13 @@ function App() {
         <Route path='/booking/invoice/:id' element={<BookingInvoice />} />
         {/* Admin Dashboard  */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
-        <Route path='/admin/appointments' element={<AdminAppointments />} />
-        <Route path='/admin/doctors' element={<Doctors />} />
+        {/* <Route path='/admin/appointments' element={<AdminAppointments />} /> */}
+        {/* <Route path='/admin/doctors' element={<Doctors />} />
         <Route path='/admin/patients' element={<Patients />} />
         <Route path='/admin/profile' element={<Profile />} />
         <Route path='/admin/reviews' element={<AdminReviews />} />
         <Route path='/admin/transaction' element={<Transactions />} />
-        <Route path='/admin/specialites' element={<Specialites />} />
+        <Route path='/admin/specialites' element={<Specialites />} /> */}
 
         <Route path='*' element={<NotFound/>}/>
       </Routes>

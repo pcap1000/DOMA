@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { useUpdateDoctorMutation } from '../../../redux/api/doctorApi';
 import useAuthCheck from '../../../redux/hooks/useAuthCheck';
 import { doctorSpecialistOptions } from '../../../constant/global';
-import ImageUpload from '../../UI/form/ImageUpload';
 import dImage from '../../../images/avatar.jpg';
 import { DatePicker } from 'antd';
 
@@ -32,7 +31,7 @@ const DoctorProfileSetting = () => {
     const handleChange = (e) => {
         setSelectValue({ ...selectValue, [e.target.name]: e.target.value })
     }
-    const onChange = (date, dateString) => { 
+    const onChange = (date, dateString) => {
         setDate(moment(dateString).format());
     };
 
@@ -71,7 +70,9 @@ const DoctorProfileSetting = () => {
                                     <img src={selectedImage ? selectedImage : data?.img || dImage} alt="" />
                                 </Link>
                                 <div className='mt-3'>
-                                    <ImageUpload setSelectedImage={setSelectedImage} setFile={setFile} />
+                                <label><b>Image Link :</b>  <span className="text-danger"></span></label>
+                                <input defaultValue={data?.img} {...register("img")} className="form-control" />
+                                   
                                 </div>
                             </div>
                         </div>
@@ -136,7 +137,18 @@ const DoctorProfileSetting = () => {
                             </div>
                         </div>
                     </div>
-
+                    {/* driver link  */}
+                    <div className="col-md-12">
+                        <div className="card mb-2 mt-2">
+                            <div className="card-body">
+                                <h6 className="card-title text-secondary">Upload your drive link Which contains your Documents</h6>
+                                <div className="form-group mb-2 card-label">
+                                    <label>pdfFiles</label>
+                                    <input defaultValue={data?.pdfFiles} {...register("pdfFiles")} className="form-control" rows={5} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="col-md-12">
                         <div className="card mb-2 p-3 mt-2">
                             <h6 className="card-title text-secondary">Clinic Info</h6>
@@ -201,13 +213,17 @@ const DoctorProfileSetting = () => {
 
                     <div className="col-md-12">
                         <div className="card mb-2 p-3 mt-2">
-                            <h6 className="card-title text-secondary">Pricing</h6>
+                            <h6 className="card-title text-secondary">Pricing</h6> 
 
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group mb-2 card-label">
                                         <label>30 Min Fee</label>
-                                        <input defaultValue={data?.price} {...register("price")} type='number' className="form-control" />
+                                        <label className='price'
+                                        style={{
+                                            fontSize: '15px',    
+                                            fontWeight: 'bold',  
+                                          }} > {data?.price} </label>
                                     </div>
                                 </div>
                             </div>
@@ -349,5 +365,14 @@ const DoctorProfileSetting = () => {
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
 
 export default DoctorProfileSetting

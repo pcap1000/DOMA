@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
 import img from '../../../images/avatar.jpg';
-
 import './Appointments.css';
 import { useGetDoctorAppointmentsQuery, useUpdateAppointmentMutation } from '../../../redux/api/appointmentApi';
 import moment from 'moment';
@@ -33,9 +32,10 @@ const Appointments = () => {
         }
     }, [isSuccess, updateIsError, error])
 
-    const getInitPatientName = () => {
+    const getInitPatientName = (data) => {
         const fullName = `${data?.patient?.firstName ?? ''} ${data?.patient?.lastName ?? ''}`;
-        return fullName.trim() || "Private Patient";
+        const patientName = fullName.trim();
+        return patientName || "Un Patient";
     }
 
     let content = null;
@@ -49,10 +49,10 @@ const Appointments = () => {
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex align-items-center gap-3">
                                 <Link to={`/`} className="patient-img">
-                                    <img src={data?.patient?.img ? data?.patient?.img : img} alt="" />
+                                    <img src={item?.patient?.img ? item?.patient?.img : img} alt="" />
                                 </Link>
                                 <div className="patients-info">
-                                    <h5>{getInitPatientName()}</h5>
+                                    <h5>{getInitPatientName(item)}</h5>
                                     <Tooltip title="Copy Tracking Id">
                                         <Button>
                                             <h6>Tracking<Tag color="#87d068" className='ms-2 text-uppercase' onClick={() => clickToCopyClipBoard(item?.trackingId)}>{item?.trackingId}</Tag></h6>
@@ -61,9 +61,8 @@ const Appointments = () => {
 
                                     <div className="info mt-2">
                                         <p><FaClock className='icon' /> {moment(item?.appointmentTime).format("MMM Do YY")} </p>
-                                        {item?.patient?.address && <p><FaLocationArrow className='icon' /> {item?.patient?.address}</p>}
                                         {item?.patient?.email && <p><FaEnvelope className='icon' /> {item?.patient?.email}</p>}
-                                        {item?.patient?.address && <p><FaPhoneAlt className='icon' />{item?.patient?.address}</p>}
+                                        {item?.patient?.address && <p><FaLocationArrow className='icon' /> {item?.patient?.address}</p>}
 
                                     </div>
                                 </div>
@@ -83,7 +82,7 @@ const Appointments = () => {
                                     item.prescriptionStatus === 'notIssued'
                                         ?
                                         <Link to={`/dashboard/appointment/treatment/${item?.id}`}>
-                                            <Button type="primary" icon={<FaBriefcaseMedical />} size="small">Treatment</Button>
+                                            {/* <Button type="primary" icon={<FaBriefcaseMedical />} size="small">Treatment</Button> */}
                                         </Link>
                                         :
                                         <Link to={`/dashboard/prescription/${item?.prescription[0]?.id}`}>
@@ -116,4 +115,4 @@ const Appointments = () => {
     )
 }
 
-export default Appointments
+export default Appointments;

@@ -1,7 +1,4 @@
-# Setup Documentation
 
-## Clone The Project
-git clone https://github.com/Ujjalzaman/Doctor-Appointment.git
 
 ### Install Frontend
 cd Doctor-Appointment

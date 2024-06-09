@@ -1,5 +1,5 @@
 import React from 'react'
-import DoctorDashCard from './doctor/DoctorDashCard';
+// import DoctorDashCard from './doctor/DoctorDashCard';
 import useAuthCheck from '../../../redux/hooks/useAuthCheck';
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
 import DashboardPage from './doctor/DashboardPage';
@@ -10,7 +10,7 @@ const Dashboard = () => {
     return (
         <>
             <DashboardLayout>
-                {role === 'doctor' && <DoctorDashCard />}
+                {role === 'doctor' }
 
                 <div className="row">
                     {role === 'patient' &&

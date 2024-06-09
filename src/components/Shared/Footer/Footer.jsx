@@ -14,11 +14,11 @@ const Footer = () => {
 							<div className="footer-widget footer-about">
 								<div className="footer-logo">
 									<Link to={'/'}>
-										<img src={logo} alt="logo" style={{ maxWidth: '160px' }} />
+										<img src={logo} alt="logo" style={{ maxWidth: '190px' }} />
 									</Link>
 								</div>
 								<div className="footer-about-content">
-									<p className='form-text' style={{maxWidth:200}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<p className='form-text' style={{maxWidth:200}}>Docmate simplifies healthcare with a user-friendly doctor appointment booking app and secure doctor-patient communication platform. </p>
 								</div>
 							</div>
 						</div>
@@ -31,7 +31,7 @@ const Footer = () => {
 									<li><Link to={'/login'}><FaAngleDoubleRight className='icon' />  Login</Link></li>
 									<li><Link to={'/login'}><FaAngleDoubleRight className='icon' />  Register</Link></li>
 									<li><Link to={'/doctors'}><FaAngleDoubleRight className='icon' />  Booking</Link></li>
-									<li><Link to={'/'}><FaAngleDoubleRight className='icon' />  Patient Dashboard</Link></li>
+									<li><Link to={'/dashboard'}><FaAngleDoubleRight className='icon' />  Patient Dashboard</Link></li>
 								</ul>
 							</div>
 						</div>
@@ -43,7 +43,7 @@ const Footer = () => {
 								<ul>
 									<li><Link to={'/'}><FaAngleDoubleRight className='icon' /> Appointments</Link></li>
 									<li><Link to={'/login'}><FaAngleDoubleRight className='icon' /> Login</Link></li>
-									<li><Link to={'/register'}><FaAngleDoubleRight className='icon' /> Register</Link></li>
+									<li><Link to={'/track-appointment'}><FaAngleDoubleRight className='icon' />Track Appointments</Link></li>
 									<li><Link to={'/dashboard'}><FaAngleDoubleRight className='icon' /> Doctor Dashboard</Link></li>
 								</ul>
 							</div>
@@ -55,15 +55,15 @@ const Footer = () => {
 								<div className="footer-contact-info">
 									<div className="footer-address">
 										<span><i className="fas fa-map-marker-alt"></i></span>
-										<p> 121, Mirzapure Union office,<br /> Sylhet, Bangladesh 03214 </p>
+										<p> 123, Silver Street,<br /> Koramangala 4th Block,Bengaluru </p>
 									</div>
 									<p>
 										<i className="fas fa-phone-alt"></i>
-										+88 017 51 040425
+										+1 518 531 6950
 									</p>
 									<p className="mb-0">
 										<i className="fas fa-envelope"></i>
-										ujjalzaman@gmail.com
+										Docmate services@gmail.com
 									</p>
 								</div>
 							</div>
@@ -79,14 +79,14 @@ const Footer = () => {
 							<div className="col-md-6 col-lg-6">
 								<div className="copyright-text">
 									<p className="mb-0"><a href="templateshub.net">
-										<div className="copyRight text-center">
+										<div className="copyRight text-left">
 											<p>Copyright {(new Date()).getFullYear()} All Rights Reserved</p>
 										</div></a></p>
 								</div>
 							</div>
 							<div className="col-md-6 col-lg-6">
 								<div className="copyright-menu">
-									<ul className="policy-menu d-flex gap-2 justify-content-center">
+									<ul className="policy-menu d-flex gap-4 justify-content-center">
 										<Link to={'/'} className='text-white'>Terms and Conditions</Link>
 										<Link to={'/'} className='text-white'>Policy</Link>
 									</ul>

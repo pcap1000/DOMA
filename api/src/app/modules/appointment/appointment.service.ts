@@ -10,6 +10,12 @@ import config from "../../../config";
 const createAppointment = async (payload: any): Promise<Appointments | null | any> => {
 
     const { patientInfo, payment } = payload;
+    
+    if (patientInfo.patientId === patientInfo.doctorId) {
+        throw new ApiError(httpStatus.BAD_REQUEST, 'You cannot book an appointment with yourself.');
+    }
+
+
     if(patientInfo.patientId){
         const isUserExist = await prisma.patient.findUnique({
             where: {
@@ -97,7 +103,7 @@ const createAppointment = async (payload: any): Promise<Appointments | null | an
             country:appointment?.patient?.country
         }
         const replacementObj = appointmentObj;
-        const subject = `Appointment Confirm With Dr ${appointment?.doctor?.firstName + ' ' + appointment?.doctor?.lastName} at ${appointment.scheduleDate} + ' ' + ${appointment.scheduleTime}`
+        const subject = `Appointment Confirm With Dr ${appointment?.doctor?.firstName + ' ' + appointment?.doctor?.lastName} at ${appointment.scheduleDate}  ${appointment.scheduleTime}`
         const toMail = `${appointment.email + ',' + appointment.doctor?.email}`;
         EmailtTransporter({ pathName, replacementObj, toMail, subject })
         return appointment;
@@ -384,6 +390,7 @@ const getDoctorAppointmentsById = async (user: any, filter: any): Promise<Appoin
     const result = await prisma.appointments.findMany({
         where: whereConditions,
         include: {
+            doctor: true,
             patient: true,
             prescription: {
                 select: {
@@ -393,7 +400,9 @@ const getDoctorAppointmentsById = async (user: any, filter: any): Promise<Appoin
         }
     });
     return result;
-}
+};
+
+
 
 const getDoctorPatients = async (user: any): Promise<Patient[]> => {
     const { userId } = user;
@@ -424,7 +433,7 @@ const getDoctorPatients = async (user: any): Promise<Patient[]> => {
         }
     })
     return patientList;
-}
+};
 
 const updateAppointmentByDoctor = async (user: any, payload: Partial<Appointments>): Promise<Appointments | null> => {
     const { userId } = user;
@@ -444,12 +453,24 @@ const updateAppointmentByDoctor = async (user: any, payload: Partial<Appointment
     })
     return result;
 }
-
+const getAppointmentsByDoctorId = async (doctorId: string): Promise<Appointments[] | null> => {
+    const result = await prisma.appointments.findMany({
+        where: {
+            doctorId: doctorId
+        },
+        include: {
+            doctor: true,
+            patient: true
+        }
+    });
+    return result;
+}
 export const AppointmentService = {
     createAppointment,
     getAllAppointments,
     getAppointment,
     deleteAppointment,
+    getAppointmentsByDoctorId,//loda
     updateAppointment,
     getPatientAppointmentById,
     getDoctorAppointmentsById,

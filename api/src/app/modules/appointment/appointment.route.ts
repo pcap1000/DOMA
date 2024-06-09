@@ -11,7 +11,8 @@ router.get('/patient/appointments',auth(AuthUser.PATIENT), AppointmentController
 router.get('/patient/invoices',auth(AuthUser.PATIENT), AppointmentController.getPatientPaymentInfo);
 router.get('/doctor/invoices',auth(AuthUser.DOCTOR), AppointmentController.getDoctorInvoices);
 
-router.get('/doctor/appointments',auth(AuthUser.DOCTOR), AppointmentController.getDoctorAppointmentsById);
+// router.get('/doctor/appointments',auth(AuthUser.DOCTOR), AppointmentController.getDoctorAppointmentsById);
+router.get('/doctor/appointments',auth(AuthUser.ADMIN, AuthUser.DOCTOR, AuthUser.PATIENT), AppointmentController.getDoctorAppointmentsById);
 router.get('/doctor/patients',auth(AuthUser.DOCTOR), AppointmentController.getDoctorPatients);
 
 router.get('/patient-payment-info/:id',auth(AuthUser.PATIENT, AuthUser.DOCTOR), AppointmentController.getPaymentInfoViaAppintmentId);
@@ -26,6 +27,8 @@ router.delete('/:id', AppointmentController.deleteAppointment);
 router.patch('/:id', auth(AuthUser.ADMIN, AuthUser.DOCTOR, AuthUser.PATIENT),AppointmentController.updateAppointment);
 //doctor side
 router.patch('/doctor/update-appointment',auth(AuthUser.DOCTOR), AppointmentController.updateAppointmentByDoctor);
+router.get('/doctor-appointments/:doctorId', auth(AuthUser.ADMIN), AppointmentController.getAppointmentsByDoctorId);
+// router.get('/doctor-appointments/:doctorId', auth(AuthUser.ADMIN, AuthUser.DOCTOR, AuthUser.PATIENT), AppointmentController.getAppointmentsByDoctorId);
 
 
 export const AppointmentRouter = router;

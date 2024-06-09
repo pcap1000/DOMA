@@ -14,21 +14,22 @@ const contactUs = async (payload: ContactPayload): Promise<{ message: string }> 
     const { email, firstName, lastName, subject, text } = payload;
 
     if (!email || !firstName || !lastName || !subject || !text) {
-        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Mising Email required fields!');
+        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Missing required fields!');
     }
     try {
+        const fixedMessage = `<b>Thanks for mailing us, We have received your mail.</b>`;
         const mailOptions = {
             from: `"${firstName + ' ' + lastName}" <${email}>`,
-            to: 'ujjalzaman+doctor@gmail.com',
+            to: email,
             subject: subject,
-            text: text
+            html: `<pre>${text}</pre><br><p>${fixedMessage}</p>`
         };
         await Transporter.sendMail(mailOptions);
         return {
-            message: "Successfull message has been sent !"
+            message: "Successful message has been sent!"
         }
     } catch (error) {
-        throw new ApiError(httpStatus.NO_CONTENT, "Unable to send message !")
+        throw new ApiError(httpStatus.NO_CONTENT, "Unable to send message!")
     }
 }
 

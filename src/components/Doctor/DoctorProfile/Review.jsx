@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import img from '../../../images/doc/doctor 3.jpg'
-import { FaRegThumbsUp } from "react-icons/fa";
+import img from '../../../images/doc/doctor 3.jpg';
+import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import moment from 'moment';
 import StarRatings from 'react-star-ratings';
 import { useCreateReviewMutation, useGetDoctorReviewsQuery } from '../../../redux/api/reviewsApi';
 import { Button, Radio, message, Space, Rate } from 'antd';
 import { useForm } from 'react-hook-form';
+
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 
 const Review = ({ doctorId }) => {
-    const { register, handleSubmit, } = useForm({});
+    const { register, handleSubmit } = useForm({});
     const [value, setValue] = useState(null);
     const [recommend, setRecommend] = useState(null);
     const [showError, setShowError] = useState(false);
+    const [reviewCount, setReviewCount] = useState(0); // State to hold the number of reviews
 
     const { data, isError, isLoading } = useGetDoctorReviewsQuery(doctorId);
     const [createReview, { isSuccess: createIsSuccess, isError: createTsError, error: createError, isLoading: createIsLoading }] = useCreateReviewMutation();
@@ -22,12 +24,18 @@ const Review = ({ doctorId }) => {
 
     useEffect(() => {
         if (recommend !== null && value !== null) {
-            setShowError(true)
+            setShowError(true);
         }
     }, [recommend, value]);
 
+    useEffect(() => {
+        if (data) {
+            setReviewCount(data.length); // Update the review count based on the length of data array
+        }
+    }, [data]);
+
     const onSubmit = (data) => {
-        const obj = {}
+        const obj = {};
         obj.isRecommended = recommend === 1 ? true : recommend === 2 ? false : null;
         obj.description = data.description;
         obj.star = value && value?.toString();
@@ -37,7 +45,6 @@ const Review = ({ doctorId }) => {
         } else {
             message.error("Please Add Review Text !!");
         }
-
     };
 
     useEffect(() => {
@@ -45,19 +52,19 @@ const Review = ({ doctorId }) => {
             message.error(createError?.data?.message);
         }
         if (createIsSuccess) {
-            message.success('Successfully Review Submited !');
+            message.success('Successfully Review Submitted !');
             setRecommend(null);
             setValue(null);
         }
-    }, [createIsLoading, createTsError, createError, createIsSuccess])
+    }, [createIsLoading, createTsError, createError, createIsSuccess]);
 
     let content = null;
-    if (!isLoading && isError) content = <div>Something Went Wrong !</div>
-    if (!isLoading && !isError && data?.length === 0) content = <div>Empty</div>
+    if (!isLoading && isError) content = <div>Something Went Wrong !</div>;
+    if (!isLoading && !isError && data?.length === 0) content = <div>Empty</div>;
     if (!isLoading && !isError && data?.length > 0) content =
         <>
             {
-                data && data.map((item, key) => (
+                data.map((item, key) => (
                     <div className='mb-4' key={item?.id + key}>
                         <div className='d-flex gap-3 justify-content-between'>
                             <div className='d-flex gap-4'>
@@ -66,20 +73,28 @@ const Review = ({ doctorId }) => {
                                 </div>
                                 <div>
                                     <h5 className="text-nowrap">{item?.patient?.firstName + ' ' + item?.patient?.lastName}</h5>
-                                    <p className="text-success"><FaRegThumbsUp /> {item?.isRecommended ? 'I recommend the doctor' : 'I do not recommend the doctor'}</p>
+                                    <p className={item?.isRecommended ? "text-success" : "text-danger"}>
+                                        {
+                                            item?.isRecommended 
+                                                ? <><FaRegThumbsUp /> I recommend the doctor</>
+                                                : <><FaRegThumbsDown /> I do not recommend the doctor</>
+                                        }
+                                    </p>
                                 </div>
                             </div>
 
                             <div className='text-end'>
                                 <div>
-                                    <StarRatings
-                                        rating={5}
-                                        starRatedColor="#f4c150"
-                                        numberOfStars={5}
-                                        name='rating'
-                                        starDimension="15px"
-                                        starSpacing="2px"
-                                    />
+                                    {item?.isRecommended && (
+                                        <StarRatings
+                                            rating={5}
+                                            starRatedColor="#f4c150"
+                                            numberOfStars={5}
+                                            name='rating'
+                                            starDimension="15px"
+                                            starSpacing="2px"
+                                        />
+                                    )}
                                 </div>
                                 <div className="">Reviewed {moment(item?.createdAt).startOf('day').fromNow()}</div>
                             </div>
@@ -90,7 +105,8 @@ const Review = ({ doctorId }) => {
                     </div>
                 ))
             }
-        </>
+        </>;
+
     return (
         <>
             <div>
@@ -99,7 +115,7 @@ const Review = ({ doctorId }) => {
                 </div>
 
                 <div className="text-center">
-                    <Link to={'/'} className='more-btn'>Show all feedback <strong>(167)</strong></Link>
+                    <Link to={'/'} className='more-btn'>Show all feedback <strong>({reviewCount})</strong></Link>
                 </div>
 
                 <div className="mt-5">
@@ -118,7 +134,7 @@ const Review = ({ doctorId }) => {
                             <Radio.Group onChange={onChange} value={recommend}>
                                 <Space direction="vertical">
                                     <Radio value={1}>Recommend Doctor</Radio>
-                                    <Radio value={2}>Not Recommened Doctor</Radio>
+                                    <Radio value={2}>Not Recommended Doctor</Radio>
                                 </Space>
                             </Radio.Group>
                         </div>
@@ -132,14 +148,10 @@ const Review = ({ doctorId }) => {
                             <Button htmlType='submit' size='medium' type='primary' disabled={!showError}>Add Review</Button>
                         </div>
                     </form>
-
                 </div>
-
             </div>
-
-
         </>
-    )
+    );
 }
 
-export default Review
+export default Review;

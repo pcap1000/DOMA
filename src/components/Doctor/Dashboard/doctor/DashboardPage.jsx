@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import img from '../../../../images/avatar.jpg';
 import { FaEye, FaCheck, FaTimes, FaBriefcaseMedical } from "react-icons/fa";
 import { useGetDoctorAppointmentsQuery, useUpdateAppointmentMutation } from '../../../../redux/api/appointmentApi';
@@ -7,6 +7,7 @@ import { Button, Tag, message } from 'antd';
 import CustomTable from '../../../UI/component/CustomTable';
 import { Tabs } from 'antd';
 import { Link } from 'react-router-dom';
+import { FaHospitalUser, FaCalendarAlt, FaHospital } from "react-icons/fa";
 
 const DashboardPage = () => {
     const [sortBy, setSortBy] = useState("upcoming");
@@ -18,7 +19,6 @@ const DashboardPage = () => {
         setSortBy(value == 1 ? 'upcoming' : value == 2 ? 'today' : sortBy)
         refetch()
     }
-
 
     const updatedApppointmentStatus = (data, type) => {
         const changeObj = {
@@ -47,7 +47,7 @@ const DashboardPage = () => {
                 const fullName = `${data?.patient?.firstName ?? ''} ${data?.patient?.lastName ?? ''}`;
                 const patientName = fullName.trim() || "Un Patient";
                 const imgdata = data?.patient?.img ? data?.patient?.img : img
-                return <>
+                return (
                     <div className="table-avatar">
                         <a className="avatar avatar-sm mr-2 d-flex gap-2">
                             <img className="avatar-img rounded-circle" src={imgdata} alt="" />
@@ -59,7 +59,7 @@ const DashboardPage = () => {
                             </div>
                         </a>
                     </div>
-                </>
+                )
             }
         },
         {
@@ -114,6 +114,8 @@ const DashboardPage = () => {
         },
     ];
 
+    const totalAppointments = data ? data.length : 0;
+
     const items = [
         {
             key: '1',
@@ -142,7 +144,15 @@ const DashboardPage = () => {
     ];
 
     return (
-        <Tabs defaultActiveKey="1" items={items} onChange={handleOnselect} />
+        <>
+        <br />
+            <div className='icon' style={{ fontStyle:'Bolt', fontSize: '20px' }}>
+                <FaCalendarAlt className='icon danger' style={{ marginRight:'10px',size:'10px' }}/>
+                Total Appointments: {totalAppointments}
+            </div>
+            <br />
+            <Tabs defaultActiveKey="1" items={items} onChange={handleOnselect} />
+        </>
     )
 }
 

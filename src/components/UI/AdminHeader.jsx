@@ -7,8 +7,8 @@ const AdminHeader = () => {
     return (
         <div className="header">
             <div className="header-left">
-                <a href="index.html" className="logo">
-                    <img src={logo} alt="Logo" />
+                <a href="/" className="logo">
+                    <img className="image" src={logo} alt="Logo" />
                 </a>
             </div>
 
@@ -16,12 +16,12 @@ const AdminHeader = () => {
                 <i className="fe fe-text-align-left"></i>
             </a>
 
-            <div className="top-nav-search">
+            {/* <div className="top-nav-search">
                 <form>
                     <input type="text" className="form-control" placeholder="Search here" />
                     <button className="btn" type="submit"><i className="fa fa-search"></i></button>
                 </form>
-            </div>
+            </div> */}
 
             <a className="mobile_btn" id="mobile_btn">
                 <i className="fa fa-bars"></i>
@@ -29,9 +29,9 @@ const AdminHeader = () => {
             <ul className="nav user-menu">
 
                 <li className="nav-item dropdown noti-dropdown">
-                    <a href="#" className="dropdown-toggle nav-link" data-toggle="dropdown">
+                    {/* <a href="#" className="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i className="fe fe-bell"></i> <span className="badge badge-pill">3</span>
-                    </a>
+                    </a> */}
                     <div className="dropdown-menu notifications">
                     </div>
                 </li>

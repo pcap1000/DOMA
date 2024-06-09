@@ -71,7 +71,17 @@ const CheckoutPage = ({ handleChange, selectValue, isCheck, setIsChecked, data, 
                             <div className="col-md-4">
                                 <div className="form-group card-label mb-3">
                                     <label htmlFor="cvv">CVV</label>
-                                    <input className="form-control" id="cvv" type="number" value={cvv && cvv} onChange={(e) => handleChange(e)} name='cvv' />
+                                    
+
+                                    <input
+                                        className="form-control"
+                                        id="cvv"
+                                        type="password"
+                                        value={cvv || ''}
+                                        onChange={(e) => handleChange(e)}
+                                        name='cvv'
+                                    />
+
                                 </div>
                             </div>
                         </div>
@@ -132,15 +142,15 @@ const CheckoutPage = ({ handleChange, selectValue, isCheck, setIsChecked, data, 
                                 <li>Time <span>{selectTime}</span></li>
                             </ul>
                             <ul className="booking-fee">
-                                <li>Consulting Fee <span>${price}</span></li>
-                                <li>Booking Fee <span>$10</span></li>
-                                <li>Vat (Including 15%) <span>$ {vat}</span></li>
+                                <li>Consulting Fee <span>₹{price}</span></li>
+                                <li>Booking Fee <span>₹10</span></li>
+                                <li>Vat (Including 15%) <span>₹ {vat}</span></li>
                             </ul>
 
                             <ul className="booking-total">
                                 <li className='d-flex justify-content-between'>
                                     <span className='fw-bold'>Total</span>
-                                    <span className="total-cost" style={{ color: '#1977cc' }}>${(Number(price) + 10 + vat)}</span>
+                                    <span className="total-cost" style={{ color: '#1977cc' }}>₹{(Number(price) + 10 + vat)}</span>
                                 </li>
                             </ul>
                         </div>

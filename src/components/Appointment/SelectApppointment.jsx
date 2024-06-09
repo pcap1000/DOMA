@@ -20,7 +20,7 @@ const SelectApppointment = ({ selectedDate, handleDateChange, selectTime, setSel
             <dir className="p-3" style={{ background: '#f8f9fa' }}>
                 <div className="row">
                     <div className="col-md-3 col-sm-12 mt-3 info-part border-end">
-                        <p className='py-2 border-bottom info-head-date'>Would you like to schedule an Intervewi? Pick a Date & Time</p>
+                        <p className='py-2 border-bottom info-head-date'>Would you like to schedule an Interveiw? Pick a Date & Time</p>
                         <div className='icon-box'>
                             <div className='d-flex gap-3'>
                                 <FaBriefcase className='icon' />
@@ -29,14 +29,6 @@ const SelectApppointment = ({ selectedDate, handleDateChange, selectTime, setSel
                             <div className='d-flex gap-3'>
                                 <FaRegClock className='icon' />
                                 <p>30 Min</p>
-                            </div>
-                            <div className='d-flex gap-3'>
-                                <FaLocationArrow className='icon' />
-                                <p>Sylhet, Bangladesh<br /><span className="form-text">1020BD, Amertam, NorthEast,Srimongol</span></p>
-                            </div>
-                            <div className='d-flex gap-3'>
-                                <FaLink className='icon' />
-                                <p>Zoom Meeting</p>
                             </div>
                             <div className='d-flex gap-3'>
                                 <FaCalendarAlt className='icon' />

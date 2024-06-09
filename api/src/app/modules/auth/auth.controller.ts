@@ -105,3 +105,5 @@ export const AuthController = {
     resetPassword,
     PasswordResetConfirm
 }
+//9MrZ!;3>c&criBa
+///api/v1/auth/login

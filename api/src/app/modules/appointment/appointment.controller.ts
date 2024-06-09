@@ -5,14 +5,28 @@ import { AppointmentService } from "./appointment.service";
 import { Appointments, Patient } from "@prisma/client";
 
 const createAppointment = catchAsync(async (req: Request, res: Response) => {
+    const { patientInfo } = req.body;
+
+    // Check if patientId and doctorId are the same
+    if (patientInfo.patientId === patientInfo.doctorId) {
+        return sendResponse(res, {
+            statusCode: 400,
+            message: 'You cannot book an appointment with yourself.',
+            success: false
+        });
+    }
+
+    // Proceed with creating the appointment if validation passes
     const result = await AppointmentService.createAppointment(req.body);
     sendResponse(res, {
         statusCode: 200,
         message: 'Successfully Appointment Created !!',
         success: true,
         data: result
-    })
-})
+    });
+});
+
+
 const createAppointmentByUnAuthenticateUser = catchAsync(async (req: Request, res: Response) => {
     const result = await AppointmentService.createAppointmentByUnAuthenticateUser(req.body);
     sendResponse(res, {
@@ -92,7 +106,7 @@ const getDoctorAppointmentsById = catchAsync(async (req: Request, res: Response)
         success: true,
         data: result
     })
-})
+});
 
 const updateAppointmentByDoctor = catchAsync(async (req: Request, res: Response) => {
     const result = await AppointmentService.updateAppointmentByDoctor(req.user, req.body);
@@ -143,11 +157,21 @@ const getDoctorInvoices = catchAsync(async (req: Request, res: Response) => {
         data: result
     })
 })
-
+const getAppointmentsByDoctorId = catchAsync(async (req: Request, res: Response) => {
+    const { doctorId } = req.params;
+    const result = await AppointmentService.getAppointmentsByDoctorId(doctorId);
+    sendResponse(res, {
+        statusCode: 200,
+        message: 'Successfully Retrieve Doctor Appointments !!',
+        success: true,
+        data: result,
+    });
+});
 export const AppointmentController = {
     getDoctorAppointmentsById,
     updateAppointmentByDoctor,
     getPatientAppointmentById,
+    getAppointmentsByDoctorId,//loda
     updateAppointment,
     createAppointment,
     getAllAppointment,
