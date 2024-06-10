@@ -30,15 +30,15 @@ const SearchDoctorAdmin = () => {
     specialist !== '' && (query["specialist"] = specialist);
 
     const priceDebounced = useDebounced({ searchQuery: priceRange, delay: 600 });
-    const debounced = useDebounced({ searchQuery: searchTerm, delay: 600 })
+    const debounced = useDebounced({ searchQuery: searchTerm, delay: 600 });
 
     if (Object.keys(priceDebounced).length !== 0 && !!priceDebounced) {
-        const { min, max } = priceDebounced
+        const { min, max } = priceDebounced;
         query["min"] = min;
         query["max"] = max;
     }
 
-    const resetFilter = () =>{
+    const resetFilter = () => {
         setPage(1);
         setSize(10);
         setSortOrder("");
@@ -47,74 +47,81 @@ const SearchDoctorAdmin = () => {
         setSorByGender("");
         setSpecialist("");
         setPriceRange({});
+    };
+
+    if (!!debounced) {
+        query.searchTerm = debounced;
     }
 
-    if (!!debounced) { query.searchTerm = debounced }
-
-    const { data, isLoading, isError } = useGetDoctorsQuery({ ...query })
+    const { data, isLoading, isError } = useGetDoctorsQuery({ ...query });
     const doctorsData = data?.doctors;
     const meta = data?.meta;
 
-    //what to render
+    // Filter only verified doctors
+    const verifiedDoctors = doctorsData ? doctorsData.filter(doctor => doctor.verified === true) : [];
+
+    // Log verified status where it is true
+    // console.log("Verified Doctors:", verifiedDoctors);
+
+    // Determine what to render
     let content = null;
-    if (isLoading) content = <>Loading ...</>;
-    if (!isLoading && isError) content = <div>Something Went Wrong !</div>
-    if (!isLoading && !isError && doctorsData.length === 0) content = <div><Empty /></div>
-    if (!isLoading && !isError && doctorsData.length > 0) content =
-        <>
-            {
-                doctorsData && doctorsData?.map((item, id) => (
+    if (isLoading) {
+        content = <>Loading ...</>;
+    } else if (!isLoading && isError) {
+        content = <div>Something Went Wrong!</div>;
+    } else if (!isLoading && !isError && verifiedDoctors.length === 0) {
+        content = <div><Empty /></div>;
+    } else if (!isLoading && !isError && verifiedDoctors.length > 0) {
+        content = (
+            <>
+                {verifiedDoctors.map((item, id) => (
                     <SearchContent key={id + item.id} data={item} />
-                ))
-            }
-        </>
+                ))}
+            </>
+        );
+    }
 
     const onShowSizeChange = (current, pageSize) => {
         setPage(page);
-        setSize(pageSize)
-    }
+        setSize(pageSize);
+    };
 
     return (
-
         <>
-        
-           
+            <div>
+                <Header />
+                <SubHeader title='Doctors' subtitle='' />
 
-        <div>
-            <Header />
-            <SubHeader title='Doctors' subtitle='' />
-
-
-            <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
-                <div className="container-fluid">
-                    <div className="row">
-                        <SearchSidebar
-                            setSearchTerm={setSearchTerm}
-                            setSorByGender={setSorByGender}
-                            setSpecialist={setSpecialist}
-                            setPriceRange={setPriceRange}
-                            resetFilter={resetFilter}
-                            query={query}
-                        />
-                        <div className="col-md-12 col-lg-8 col-xl-9">
-                            {content}
-                            <div className='text-center mt-5 mb-5'>
-                                <Pagination
-                                    showSizeChanger
-                                    onShowSizeChange={onShowSizeChange}
-                                    total={meta?.total}
-                                    pageSize={size}
-                                />
+                <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <SearchSidebar
+                                setSearchTerm={setSearchTerm}
+                                setSorByGender={setSorByGender}
+                                setSpecialist={setSpecialist}
+                                setPriceRange={setPriceRange}
+                                resetFilter={resetFilter}
+                                query={query}
+                            />
+                            <div className="col-md-12 col-lg-8 col-xl-9">
+                                {content}
+                                <div className='text-center mt-5 mb-5'>
+                                    <Pagination
+                                        showSizeChanger
+                                        onShowSizeChange={onShowSizeChange}
+                                        total={meta?.total}
+                                        pageSize={size}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
-        <ChatBot />
-    </>
-    )
-}
+            <ChatBot />
+        </>
+    );
+};
 
-export default SearchDoctorAdmin
+export default SearchDoctorAdmin;
