@@ -14,6 +14,17 @@ import {
     FaHouseUser
 } from "react-icons/fa";
 
+const calculateAge = (dateOfBirth) => {
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth() - birthDate.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
 const DashboardSidebar = () => {
     const { data, role } = useAuthCheck();
 
@@ -37,8 +48,8 @@ const DashboardSidebar = () => {
                             <div className='profile-details'>
                                 <h5 className='mb-0'>{data?.firstName + " " + data?.lastName}</h5>
                                 <div className='mt-2'>
-                                    <p className=' form-text m-0'>24 Jul 1983, 38 Years</p>
-                                    <p className=' form-text m-0'> New Yourk , USA</p>
+                                    <p className=' form-text m-0'>{calculateAge(data?.dateOfBirth)} years old</p>
+                                    <p className=' form-text m-0'> {data?.state}, {data?.country}</p>
                                     <p className=' form-text m-0'>{data?.email}</p>
                                 </div>
                             </div>
