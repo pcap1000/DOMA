@@ -13,24 +13,19 @@ import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
 import useAuthCheck from '../../../redux/hooks/useAuthCheck';
 
 // Import Swiper styles
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 
-// SwiperCore.use([Navigation, Autoplay]);
-
-// Import Swiper styles
-// import 'swiper/swiper-bundle.min.css';
-// import 'swiper/components/navigation/navigation.min.css';
-// import 'swiper/components/autoplay/autoplay.min.css';
-
-
 const BookDoctor = () => {
     const { data, isError, isLoading } = useGetDoctorsQuery({ limit: 10 });
     const doctors = data?.doctors;
+
+    // Filter to get only verified doctors
+    const verifiedDoctors = doctors ? doctors.filter(doctor => doctor.verified === true) : [];
+
     const [addFavourite, { isSuccess, isLoading: FIsLoading, isError: fIsError, error }] = useAddFavouriteMutation();
-	
+
     const handleAddFavourite = (id) => {
         addFavourite({ doctorId: id });
     };
@@ -56,18 +51,18 @@ const BookDoctor = () => {
         }
     };
 
-    // what to render 
+    // Content rendering logic
     let content = null;
     if (isLoading) {
         content = <Spin size="large" tip="Loading doctors..." />;
     } else if (isError) {
         content = <div>Something Went Wrong!</div>;
-    } else if (doctors?.length === 0) {
+    } else if (verifiedDoctors?.length === 0) {
         content = <div>Empty</div>;
-    } else if (doctors?.length > 0) {
+    } else if (verifiedDoctors?.length > 0) {
         content = (
             <>
-                {doctors.map((item) => (
+                {verifiedDoctors.map((item) => (
                     <SwiperSlide key={item.id}>
                         <div className="profile-widget">
                             <div className="doc-img">
@@ -109,7 +104,6 @@ const BookDoctor = () => {
                                     <li>
                                         <FaClock className='icon' /> Available on Mon-Fri
                                     </li>
-									
                                     <li>
                                         <FontAwesomeIcon icon={faRupeeSign} className='icon' /> {item?.price}
                                     </li>
@@ -143,7 +137,7 @@ const BookDoctor = () => {
                     </div>
                     <div className="col-12 col-md-9 col-lg-9">
                         <div className="d-flex justify-content-center align-items-center gap-3 border-0">
-                            {doctors && (
+                            {verifiedDoctors && (
                                 <Swiper
                                     spaceBetween={10}
                                     slidesPerView={1}
