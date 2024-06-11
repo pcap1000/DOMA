@@ -9,7 +9,7 @@ import Header from '../../Shared/Header/Header';
 import Service from '../Services/Service';
 import ChatBotHome from "../../ChatBot/ChatBotHome";
 import "./index.css"
-
+import { Analytics } from "@vercel/analytics/react"
 // Custom Hook to detect window size with throttling
 const useWindowSize = () => {
     const [windowSize, setWindowSize] = useState({
@@ -49,6 +49,7 @@ const Home = () => {
         <>
             <Header />
             <HeroSection />
+            <Analytics />
             <InfoPage />
             <Service />
             <ClinicAndSpecialities />
