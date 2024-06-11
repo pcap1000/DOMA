@@ -8,26 +8,34 @@ import InfoPage from '../InfoPage/InfoPage';
 import Header from '../../Shared/Header/Header';
 import Service from '../Services/Service';
 import ChatBotHome from "../../ChatBot/ChatBotHome";
+import "./index.css"
 
-// Custom Hook to detect window size
+// Custom Hook to detect window size with throttling
 const useWindowSize = () => {
     const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined,
+        width: window.innerWidth,
+        height: window.innerHeight,
     });
 
     useEffect(() => {
+        let timeoutId = null;
+
         const handleResize = () => {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                setWindowSize({
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                });
+            }, 150); // Throttle resize events every 150ms
         };
 
         window.addEventListener('resize', handleResize);
-        handleResize(); // Call handler once to set initial size
-
-        return () => window.removeEventListener('resize', handleResize);
+        
+        return () => {
+            clearTimeout(timeoutId);
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     return windowSize;
@@ -53,3 +61,5 @@ const Home = () => {
 };
 
 export default Home;
+
+/* Additional CSS for hiding elements on small screens */
