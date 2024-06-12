@@ -3,7 +3,7 @@ import { DatePicker } from 'antd';
 
 const SelectDateAndTime = ({ content, handleDateChange, disabledDateTime, selectedDate, dContent, selectTime }) => {
     const handleChange = (_date, dateString) => {
-        console.log('Selected Date:', dateString);
+        // console.log('Selected Date:', dateString);
         handleDateChange(_date, dateString);
     };
 
