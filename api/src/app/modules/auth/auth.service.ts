@@ -80,7 +80,7 @@ const resetPassword = async (payload: any): Promise<{ message: string }> => {
     if (!isUserExist) {
         throw new ApiError(httpStatus.NOT_FOUND, "User is not Exist !");
     }
-    const clientUrl = 'https://doma-1.onrender.com/reset-password/';
+    const clientUrl = 'https://doma-silk.vercel.app/reset-password/';
     const uniqueString = uuidv4() + isUserExist.id;
     const uniqueStringHashed = await bcrypt.hashSync(uniqueString, 12);
     const encodedUniqueStringHashed = uniqueStringHashed.replace(/\//g, '-');
@@ -143,7 +143,7 @@ const PassworResetConfirm = async (payload: any): Promise<any> => {
             throw new ApiError(httpStatus.NOT_FOUND, "User does not exist!"); 
         }
         
-        const resetLink = `https://doma-1.onrender.com/reset-password/${isUserExist.id}/${uniqueString}`;
+        const resetLink = `https://doma-silk.vercel.app/reset-password/${isUserExist.id}/${uniqueString}`;
         const getForgotRequest = await tx.forgotPassword.findFirst({
             where: {
                 userId: userId as string,
