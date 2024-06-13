@@ -7,6 +7,8 @@ const ChatBot = () => {
     const [messages, setMessages] = useState([{ sender: 'bot', text: 'Enter Your symptoms!' }]);
     const [isOpen, setIsOpen] = useState(false);
 
+    const apiUrl = process.env.REACT_APP_CHAT_BOT;
+
     const handleInputChange = (event) => {
         setInput(event.target.value);
     };
@@ -18,7 +20,7 @@ const ChatBot = () => {
         setMessages([...messages, userMessage]);
 
         try {
-            const res = await axios.post('http://localhost:4000/api/chat', { message: `These are the symptoms: ${input} tell which type of doctor should I have an appointment with(Only the types of doctor nothing else)` });
+            const res = await axios.post(`${apiUrl}/api/chat`, { message: `These are the symptoms: ${input} tell which type of doctor should I have an appointment with (Only the types of doctor nothing else)` });
             const botMessage = { sender: 'bot', text: res.data.message };
             setMessages([...messages, userMessage, botMessage]);
         } catch (error) {

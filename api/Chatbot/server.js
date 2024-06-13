@@ -1,9 +1,16 @@
+// Import dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const dotenv = require('dotenv'); // Import dotenv
+
+// Load environment variables from .env file
+dotenv.config();
+
+// Import Groq SDK
 const Groq = require('groq-sdk');
 const groq = new Groq({
-    apiKey: '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'
+    apiKey: process.env.GROQ_API_KEY, // Use the API key from environment variables
 });
 
 const app = express();
@@ -33,5 +40,5 @@ app.post('/api/chat', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server running `);
 });

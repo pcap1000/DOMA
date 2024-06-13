@@ -7,6 +7,8 @@ const ChatBotHome = () => {
     const [messages, setMessages] = useState([{ sender: 'bot', text: 'Any Questions!' }]);
     const [isOpen, setIsOpen] = useState(false);
 
+    const apiUrl = process.env.REACT_APP_CHAT_BOT; // Updated variable
+
     const handleInputChange = (event) => {
         setInput(event.target.value);
     };
@@ -18,9 +20,7 @@ const ChatBotHome = () => {
         setMessages([...messages, userMessage]);
 
         try {
-            const res = await axios.post('http://localhost:4000/api/chat', { message: `
-            Data:
-
+            const res = await axios.post(`${apiUrl}/api/chat`, { message: `
             Book with Ease
             Heal with Confidence
             
@@ -31,7 +31,7 @@ const ChatBotHome = () => {
             Need an appointment?
             
             Access healthcare at any time with our 24-hour appointment service, ensuring round-the-clock availability for booking appointments according to your schedule.
-            Emegency Cases
+            Emergency Cases
             +1 518 531 6950
             
             Our 24/7 customer care ensures support whenever you need it. Reach out anytime for assistance with bookings, inquiries, or concerns, providing peace of mind and reliable assistance around the clock
@@ -41,8 +41,8 @@ const ChatBotHome = () => {
             
             Docmate simplifies healthcare with a user-friendly doctor appointment booking app and secure doctor-patient communication platform. 
             
-             123, Silver Street,
-            Koramangala 4th Block,Bengaluru
+            123, Silver Street,
+            Koramangala 4th Block, Bengaluru
             
             +1 518 531 6950
             
@@ -50,10 +50,8 @@ const ChatBotHome = () => {
             
             Docmate streamlines healthcare with its dual-functionality app. Patients effortlessly schedule appointments with preferred doctors while accessing medical records and receiving appointment reminders. The platform fosters secure doctor-patient communication through messaging features, enhancing care coordination and patient engagement. With Health Ease, accessing quality healthcare and maintaining meaningful doctor-patient relationships has never been easier or more convenient.
 
-            Answer this question "${input}" based on the Above data(Behave like a Chatbot).
-            
+            Answer this question "${input}" based on the Above data (Behave like a Chatbot).
             ` });
-            // const res = await axios.post('http://localhost:4000/api/chat', { message: `These are the symptoms: ${input} tell which type of doctor should I have an appointment with` });
             const botMessage = { sender: 'bot', text: res.data.message };
             setMessages([...messages, userMessage, botMessage]);
         } catch (error) {
