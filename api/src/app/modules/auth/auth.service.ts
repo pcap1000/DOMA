@@ -80,7 +80,7 @@ const resetPassword = async (payload: any): Promise<{ message: string }> => {
     if (!isUserExist) {
         throw new ApiError(httpStatus.NOT_FOUND, "User is not Exist !");
     }
-    const clientUrl = `${config.clientUrl}/reset-password/`
+    const clientUrl = 'https://doma-1.onrender.com/reset-password/';
     const uniqueString = uuidv4() + isUserExist.id;
     const uniqueStringHashed = await bcrypt.hashSync(uniqueString, 12);
     const encodedUniqueStringHashed = uniqueStringHashed.replace(/\//g, '-');
@@ -139,40 +139,42 @@ const PassworResetConfirm = async (payload: any): Promise<any> => {
             where: { id: userId }
         });
 
-        if (!isUserExist) { throw new ApiError(httpStatus.NOT_FOUND, "User is not Exist !") };
-        const resetLink = `${config.clientUrl}/reset-password/${isUserExist.id}/${uniqueString}`
+        if (!isUserExist) { 
+            throw new ApiError(httpStatus.NOT_FOUND, "User does not exist!"); 
+        }
+        
+        const resetLink = `https://doma-1.onrender.com/reset-password/${isUserExist.id}/${uniqueString}`;
         const getForgotRequest = await tx.forgotPassword.findFirst({
             where: {
                 userId: userId as string,
                 uniqueString: resetLink
             }
-        })
-        if (!getForgotRequest) { throw new ApiError(httpStatus.NOT_FOUND, "Forgot Request was not found or Invalid !") };
+        });
+        
+        if (!getForgotRequest) { 
+            throw new ApiError(httpStatus.NOT_FOUND, "Forgot Request was not found or is invalid!"); 
+        }
 
         const expiresAt = moment(getForgotRequest.expiresAt);
         const currentTime = moment();
         if (expiresAt.isBefore(currentTime)) {
-            throw new ApiError(httpStatus.NOT_FOUND, "Forgot Request has been expired !")
+            throw new ApiError(httpStatus.NOT_FOUND, "Forgot Request has expired!");
         } else {
             await tx.auth.update({
-                where: {
-                    id: userId
-                },
-                data: {
-                    password: password && await bcrypt.hashSync(password, 12)
-                }
+                where: { id: userId },
+                data: { password: password && bcrypt.hashSync(password, 12) }
             });
             await prisma.forgotPassword.delete({
-                where: {
-                    id: getForgotRequest.id
-                }
-            })
+                where: { id: getForgotRequest.id }
+            });
         }
     });
+
     return {
-        message: "Password Changed Successfully !!"
-    }
-}
+        message: "Password Changed Successfully!!"
+    };
+};
+
 
 export const AuthService = {
     loginUser,
