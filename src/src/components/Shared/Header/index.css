@@ -49,7 +49,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header .logo img {
-  max-height: 80px;
+  max-height: 250px;
 }
 
 /* HeaderNav Styles */
@@ -263,7 +263,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: background 0.3s, color 0.3s;
   font-size: 16px;
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 230px;
   margin-bottom: 15px;
   text-align: center;
 }
